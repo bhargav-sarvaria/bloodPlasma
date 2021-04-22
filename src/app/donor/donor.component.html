@@ -1,0 +1,63 @@
+<div>
+    <div>
+        <form [formGroup] = "donorForm" (ngSubmit) = "submitDonation()">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" formControlName="name" placeholder="Name">
+            </div>
+            
+            <div class="form-group">
+                <label>Mobile No.</label>
+                <input type="number" class="form-control" formControlName="mobile_no" placeholder="Mobile No.">
+            </div>
+
+            <div>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Date of Recovery</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="recovery_date" placeholder="Recovery Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Blood Group</mat-label>
+                    <mat-select formControlName="blood_group">
+                        <mat-option *ngFor="let group of bloodGroups" [value]="group">
+                        {{group}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="dobPicker" formControlName="dob" placeholder="Date of Birth">
+                    <mat-datepicker-toggle matSuffix [for]="dobPicker">
+                      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #dobPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <label>Pin Code</label>
+                <input type="number" class="form-control" formControlName="pincode" placeholder="Pin Code">
+            </div>
+
+            <button mat-raised-button style = "width: 100%;" color="primary" type="submit" [disabled] = "!gotLocation || !donorForm.valid">Add</button>
+            <span style="color: gray;text-align: center;width: 100%;"><p>Enable location in order to submit</p></span>
+
+        </form>
+
+        <button mat-stroked-button style = "width: 100%; margin-top: 3%;" color="primary" (click)="getLocation()">Allow Location</button>
+        <span style="color: gray;text-align: center;width: 100%;">
+            <p>Allowing location helps us connect you to plasma requests nearby, nobody will be able to access your location</p>
+        </span>
+    </div>
+</div>
+
