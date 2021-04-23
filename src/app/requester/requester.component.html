@@ -1,9 +1,9 @@
 <mat-tab-group>
-    <mat-tab label="Submit Information">
+    <mat-tab label="Request Plasma">
         <mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
         <div class="container">
             <div class="heading">
-              <p>If you have recovered from Covid, Please enter your details here to help someone who might need your plasma</p>
+              <p>Please fill in the details below so we can try and connect you to potential donors</p>
             </div>
             <div style="width: 100; text-align: center;">
                 <span [ngStyle]="{'color': messageColor}" *ngIf="message!=''">
@@ -14,7 +14,7 @@
                     </span>
             </div>
             <div>
-                <form [formGroup] = "donorForm" (ngSubmit) = "addDonor()">
+                <form [formGroup] = "requesterForm" (ngSubmit) = "addRequest()">
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class="form-control" formControlName="name" placeholder="Name">
@@ -29,21 +29,21 @@
                         <label>Age</label>
                         <input type="number" class="form-control" formControlName="age" placeholder="Age">
                     </div>
-            
+
                     <div>
                         <mat-form-field appearance="fill" style="width: 100%;">
-                            <mat-label>Date of Recovery</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="recovery_date" placeholder="Recovery Date">
-                            <mat-datepicker-toggle matSuffix [for]="picker">
-                                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                            </mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-label>Gender</mat-label>
+                            <mat-select formControlName="gender">
+                                <mat-option *ngFor="let gender of genders" [value]="gender">
+                                {{gender}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
             
                     <div>
                         <mat-form-field appearance="fill" style="width: 100%;">
-                            <mat-label>Blood Group</mat-label>
+                            <mat-label>Required Blood Group</mat-label>
                             <mat-select formControlName="blood_group">
                                 <mat-option *ngFor="let group of bloodGroups" [value]="group">
                                 {{group}}
@@ -57,7 +57,7 @@
                         <input type="number" class="form-control" formControlName="pincode" placeholder="Pin Code">
                     </div>
             
-                    <button mat-raised-button style = "width: 100%;" color="primary" type="submit" [disabled] = "!gotLocation || !donorForm.valid">Add</button>
+                    <button mat-raised-button style = "width: 100%;" color="primary" type="submit" [disabled] = "!gotLocation || !requesterForm.valid">Request</button>
                     <span style="color: gray;text-align: center;width: 100%;"><p>Enable location in order to submit</p></span>
             
                 </form>
@@ -69,15 +69,10 @@
             </div>            
           </div>
     </mat-tab>
-
-    <mat-tab label="Requests">
-        <app-requests></app-requests>
-    </mat-tab>
-    
-    <mat-tab label="Submitted Information">
+    <mat-tab label="Requested Information">
         <div class="container">
             <div class="heading">
-                <p>List of Submitted Donors</p>
+                <p>List of Submitted Requests</p>
               </div>
             <table class="table" *ngIf= "registeredNames.length > 0">
                 <thead>

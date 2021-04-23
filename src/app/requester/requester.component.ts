@@ -6,17 +6,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { DonorInformationDialogComponent } from '../donor-information-dialog/donor-information-dialog.component';
 
 @Component({
-  selector: 'app-donor',
-  templateUrl: './donor.component.html',
-  styleUrls: ['./donor.component.scss']
+  selector: 'app-requester',
+  templateUrl: './requester.component.html',
+  styleUrls: ['./requester.component.scss']
 })
+export class RequesterComponent implements OnInit {
 
-
-export class DonorComponent implements OnInit {
-
-  
-  donorForm: FormGroup;
+  requesterForm: FormGroup;
   bloodGroups: any;
+  genders: any;
   lat: any = '';
   lng: any = '';
   gotLocation: boolean = false;
@@ -25,83 +23,67 @@ export class DonorComponent implements OnInit {
   messageColor: string = '';
   registeredNumbers: Array<number> = [];
   registeredNames: Array<string> = [];
-  registeredCords: Array<Object> = [];
   alreadyRegistered: boolean = false;
   headers: Array<string> =  ['#','Name', 'Number', 'Details'];
 
-
   constructor(private formBuilder: FormBuilder, private datepipe: DatePipe, private commonService: CommonService, public dialog: MatDialog) {
 
-    console.log(this.commonService.getCookie('mobile_nos'), 'value');
     this.setHistory();
     this.bloodGroups = [
       '(A+)', '(A-)', '(B+)', '(B-)', '(O+)', '(O-)','(AB+)', '(AB-)'  
     ];
+    this.genders = [
+      'Female', 'Male'  
+    ];
 
-    this.donorForm = this.formBuilder.group({
+    this.requesterForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       mobile_no: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
-      recovery_date: ['', [Validators.required]],
       blood_group: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.min(10), Validators.max(99)]],
       pincode: ['', [Validators.required, Validators.min(100000), Validators.max(999999)]],
     });
+  }
 
-    this.donorForm.valueChanges.subscribe(form => {
-      if (form.recovery_date) {
-        this.donorForm.patchValue({
-          recovery_date: this.datepipe.transform(form.recovery_date, 'yyyy-MM-dd')
-        }, {
-          emitEvent: false
-        });
-      }
-    });
+  setHistory(){
+    if(this.commonService.getCookie('requester_mobile_nos') && this.commonService.getCookie('requester_names')){
+      this.registeredNumbers = JSON.parse(this.commonService.getCookie('requester_mobile_nos'));
+      this.registeredNames = JSON.parse(this.commonService.getCookie('requester_names'));
+      this.alreadyRegistered = true;
+    }
   }
 
   ngOnInit(): void {
   }
 
-  setHistory(){
-    if(this.commonService.getCookie('mobile_nos') && this.commonService.getCookie('names')){
-      this.registeredNumbers = JSON.parse(this.commonService.getCookie('mobile_nos'));
-      this.registeredNames = JSON.parse(this.commonService.getCookie('names'));
-      this.registeredCords = JSON.parse(this.commonService.getCookie('cords'));
-      this.alreadyRegistered = true;
-    }
-  }
-
-  addDonor(){
+  addRequest(){
     try{
-      var name = this.donorForm.get('name')!.value;
-      var mobile_no = this.donorForm.get('mobile_no')!.value;
-      var recovery_date = this.donorForm.get('recovery_date')!.value;
-      var blood_group = this.donorForm.get('blood_group')!.value;
-      var age = this.donorForm.get('age')!.value;
-      var pincode = this.donorForm.get('pincode')!.value;
+      var name = this.requesterForm.get('name')!.value;
+      var mobile_no = this.requesterForm.get('mobile_no')!.value;
+      var blood_group = this.requesterForm.get('blood_group')!.value;
+      var gender = this.requesterForm.get('gender')!.value;
+      var age = this.requesterForm.get('age')!.value;
+      var pincode = this.requesterForm.get('pincode')!.value;
 
       this.showProgressBar = true;
 
-      this.commonService.addDonor(name, mobile_no, recovery_date, blood_group, age, pincode, this.lat, this.lng).subscribe(
+      this.commonService.addRequest(name, mobile_no, blood_group, gender, age, pincode, this.lat, this.lng).subscribe(
       response=>{
         this.showProgressBar = false;
         console.log(response)
         this.message = response['message'];
         if(response.hasOwnProperty('success') && response['success']) {          
           this.messageColor = 'Green';
-          this.donorForm.reset();
-          for (let name in this.donorForm.controls) {
-            this.donorForm.controls[name].setErrors(null);
+          this.requesterForm.reset();
+          for (let name in this.requesterForm.controls) {
+            this.requesterForm.controls[name].setErrors(null);
           }
 
-          var cords = { lat: this.lat, lng: this.lng };
-          
           this.registeredNumbers.push(mobile_no);
           this.registeredNames.push(name);
-          this.registeredCords.push(cords);
-          
-          this.commonService.setCookie('mobile_nos', JSON.stringify(this.registeredNumbers));
-          this.commonService.setCookie('names', JSON.stringify(this.registeredNames));
-          this.commonService.setCookie('cords', JSON.stringify(this.registeredCords));
+          this.commonService.setCookie('requester_mobile_nos', JSON.stringify(this.registeredNumbers));
+          this.commonService.setCookie('requester_names', JSON.stringify(this.registeredNames));
           this.setHistory();
         }else{
           this.messageColor = 'Red';
@@ -134,8 +116,8 @@ export class DonorComponent implements OnInit {
   }
 
   openDialog(mobile_no: number) {
-    var param = {mobile_no: mobile_no, name: 'Donor'};
-    this.dialog.open(DonorInformationDialogComponent, {
+    var param = {mobile_no: mobile_no, name: 'Requester'};
+    let  dialogRef = this.dialog.open(DonorInformationDialogComponent, {
       width: '75%',
       data: param
     });

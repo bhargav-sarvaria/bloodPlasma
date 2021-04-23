@@ -1,0 +1,8 @@
+<table class="table" *ngIf= "donor">
+    <tbody>
+        <tr *ngFor="let key of headers" >
+            <td *ngIf="donor[key]"><p style="color: purple">{{headers_reformed[key]}}</p></td>
+            <td *ngIf="donor[key]">{{donor[key]}}</td>
+        </tr>
+    </tbody>
+</table>

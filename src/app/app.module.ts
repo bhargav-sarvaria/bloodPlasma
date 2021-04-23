@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -17,13 +18,24 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DonorInformationDialogComponent } from './donor-information-dialog/donor-information-dialog.component';
+import { RequesterComponent } from './requester/requester.component';
+import { RequestsComponent } from './requests/requests.component';
+
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
     AppComponent,
     DonorComponent,
+    DonorInformationDialogComponent,
+    RequesterComponent,
+    RequestsComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,10 +50,18 @@ import { DatePipe } from '@angular/common';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressBarModule,
+    HttpClientModule,
+    MatDialogModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB1FEYohX4TO33nCtREo4--jcdeVKmWDtA',
+      libraries: ['geometry']
+    })
   ],
   providers: [
     MatDatepickerModule,
+    CookieService,
     DatePipe,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],

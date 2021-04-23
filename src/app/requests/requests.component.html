@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="heading">
+        <p>Potential People you can donate plasma to</p>
+      </div>
+    <table class="table" *ngIf= "requesters.length > 0">
+        <thead>
+            <tr>
+                <th *ngFor = "let column of headers">{{column}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let request of requesters;let i = index">
+                <td>{{request.name}}</td>
+                <td>{{request.age}}</td>
+                <td>{{request.mobile_no}}</td>
+                <td>{{request.distance}} km</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
