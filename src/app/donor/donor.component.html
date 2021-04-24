@@ -33,11 +33,11 @@
                     <div>
                         <mat-form-field appearance="fill" style="width: 100%;">
                             <mat-label>Date of Negative Report</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="recovery_date" placeholder="Recovery Date">
+                            <input matInput [matDatepicker]="picker" formControlName="recovery_date" placeholder="Recovery Date" readonly >
                             <mat-datepicker-toggle matSuffix [for]="picker">
                                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                             </mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-datepicker #picker disabled="false"></mat-datepicker>
                         </mat-form-field>
                     </div>
 

@@ -46,7 +46,7 @@ export class DonorComponent implements OnInit {
     this.donorForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       mobile_no: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
-      recovery_date: ['', [Validators.required]],
+      recovery_date: [new Date(), Validators.required],
       city: ['', [Validators.required]],
       blood_group: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.min(10), Validators.max(99)]],

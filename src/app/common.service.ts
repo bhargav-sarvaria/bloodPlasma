@@ -24,7 +24,8 @@ interface RequestersInterface extends IObjectKeys {
   age: string;
   pincode: string;
   lat: number,
-  lng: number
+  lng: number,
+  date: string
 }
 
 @Injectable({
@@ -82,7 +83,8 @@ export class CommonService {
       age: age,
       pincode: pincode,
       lat: lat,
-      lng: lng
+      lng: lng,
+      date: this.getDate()
     };
     // console.log(params);
 
@@ -114,5 +116,15 @@ export class CommonService {
 
     const params = { mobile_no: mobile_no };
     return  this.httpClient.post<UserPostResponse>('api/getRequests', params, {headers: httpHeaders});
+  }
+
+  getDate(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var datestr = dd + '/' + mm + '/' + yyyy;
+    return datestr;
   }
 }
