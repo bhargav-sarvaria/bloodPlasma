@@ -37,7 +37,7 @@ export class RequesterComponent implements OnInit {
       'Female', 'Male'  
     ];
     this.cities = [
-      'Mumbai', 'Pune', 'Nashik', 'Delhi', 'Bangalore', 'Chennai', 'Kolkatta'  
+      'Mumbai', 'Pune', 'Nashik', 'Delhi', 'Bangalore', 'Chennai', 'Kolkatta'  , 'Other'
     ];
 
     this.requesterForm = this.formBuilder.group({

@@ -40,7 +40,7 @@ export class DonorComponent implements OnInit {
     ];
 
     this.cities = [
-      'Mumbai', 'Pune', 'Nashik', 'Delhi', 'Bangalore', 'Chennai', 'Kolkatta'  
+      'Mumbai', 'Pune', 'Nashik', 'Delhi', 'Bangalore', 'Chennai', 'Kolkatta' , 'Other' 
     ];
 
     this.donorForm = this.formBuilder.group({
