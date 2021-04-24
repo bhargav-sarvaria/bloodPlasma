@@ -31,7 +31,7 @@ export class DonorInformationDialogComponent implements OnInit {
   donor: any = {};
   headers: Array<string> = ['name', 'mobile_no', 'blood_group', 'gender', 'recovery_date', 'age', 'pincode'];
   headers_reformed: IDevice = { 'name':'Name', 'mobile_no': 'Mobile No.', 'blood_group': 'Blood Group',
-   'recovery_date': 'Date of Recovery', 'age': 'Age', 'pincode': 'Pin Code', 'gender' : 'Gender'
+   'recovery_date': 'Date of Negative Report', 'age': 'Age', 'pincode': 'Pin Code', 'gender' : 'Gender'
   }
   mobile_no: number;
   type: string;

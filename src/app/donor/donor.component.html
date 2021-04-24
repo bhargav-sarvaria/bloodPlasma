@@ -32,7 +32,7 @@
             
                     <div>
                         <mat-form-field appearance="fill" style="width: 100%;">
-                            <mat-label>Date of Recovery</mat-label>
+                            <mat-label>Date of Negative Report</mat-label>
                             <input matInput [matDatepicker]="picker" formControlName="recovery_date" placeholder="Recovery Date">
                             <mat-datepicker-toggle matSuffix [for]="picker">
                                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -71,7 +71,7 @@
                     <button mat-raised-button style = "width: 100%;" color="primary" type="submit" [disabled] = "!gotLocation || !donorForm.valid">Add</button>
                     <span style="color: gray;text-align: center;width: 100%;">
                         <p>Enable location in order to submit</p>
-                        <p>By clicking add you are agreeing to accept all the terms and conditions</p>
+                        <p>By clicking add you are agreeing to the <a title="Terms" target="_blank" href="/assets/T&C.pdf" >terms and conditions</a></p>
                     </span>
             
                 </form>

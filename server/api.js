@@ -60,7 +60,7 @@ router.post('/addDonor', async (req, res) => {
                     if (err) res.json({ message: 'Unable to submit your information'});
                     if(result.hasOwnProperty('insertedCount')){
                         if(result.insertedCount){
-                            res.json({success: true, 'message': 'Successfully and securely added your information'});
+                            res.json({success: true, 'message': 'Successfully added your information, you will be able to see requests after 14 days of testing negative'});
                         }else{
                             res.json({success: false, message:'Unable to submit your information'});
                         }
