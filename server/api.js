@@ -160,7 +160,8 @@ router.post('/getRequests', async (req, res) => {
 
                 if(daysDifference > 14){
                     var query = {
-                        blood_group: donor.blood_group
+                        blood_group: donor.blood_group,
+                        city: donor.city
                     }
     
                     requests.find(query).toArray(function(err, result) {

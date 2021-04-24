@@ -17,6 +17,7 @@ interface IObjectKeys {
 interface RequestersInterface extends IObjectKeys {
   name: string;
   mobile_no: string;
+  city: string;
   blood_group: string;
   gender: string;
   recovery_date: string;
@@ -46,7 +47,7 @@ export class CommonService {
     return this.cookieService.get(key);
   }
 
-  addDonor(name: string, mobile_no: string, recovery_date: string, blood_group: string, age: string, pincode: string, lat: string, lng: string): Observable<UserPostResponse>{
+  addDonor(name: string, mobile_no: string, recovery_date: string, city: string, blood_group: string, age: string, pincode: string, lat: string, lng: string): Observable<UserPostResponse>{
 
     const httpHeaders = new HttpHeaders();
     httpHeaders.append('content-type','application/json');
@@ -55,6 +56,7 @@ export class CommonService {
       name: name,
       mobile_no: mobile_no,
       recovery_date: recovery_date,
+      city: city,
       blood_group: blood_group,
       age: age,
       pincode: pincode,
@@ -66,7 +68,7 @@ export class CommonService {
     return  this.httpClient.post<UserPostResponse>('api/addDonor', params, {headers: httpHeaders});
   }
 
-  addRequest(name: string, mobile_no: string, blood_group: string, gender: string, age: string, pincode: string, lat: string, lng: string): Observable<UserPostResponse>{
+  addRequest(name: string, mobile_no: string, city: string, blood_group: string, gender: string, age: string, pincode: string, lat: string, lng: string): Observable<UserPostResponse>{
 
     const httpHeaders = new HttpHeaders();
     httpHeaders.append('content-type','application/json');
@@ -75,6 +77,7 @@ export class CommonService {
       name: name,
       mobile_no: mobile_no,
       gender: gender,
+      city: city,
       blood_group: blood_group,
       age: age,
       pincode: pincode,

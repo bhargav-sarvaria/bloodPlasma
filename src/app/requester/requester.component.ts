@@ -13,6 +13,7 @@ import { DonorInformationDialogComponent } from '../donor-information-dialog/don
 export class RequesterComponent implements OnInit {
 
   requesterForm: FormGroup;
+  cities: any;
   bloodGroups: any;
   genders: any;
   lat: any = '';
@@ -35,10 +36,14 @@ export class RequesterComponent implements OnInit {
     this.genders = [
       'Female', 'Male'  
     ];
+    this.cities = [
+      'Mumbai', 'Pune', 'Nashik', 'Delhi', 'Bangalore', 'Chennai', 'Kolkatta'  
+    ];
 
     this.requesterForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       mobile_no: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
+      city: ['', [Validators.required]],
       blood_group: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.min(10), Validators.max(99)]],
@@ -61,6 +66,7 @@ export class RequesterComponent implements OnInit {
     try{
       var name = this.requesterForm.get('name')!.value;
       var mobile_no = this.requesterForm.get('mobile_no')!.value;
+      var city = this.requesterForm.get('city')!.value;
       var blood_group = this.requesterForm.get('blood_group')!.value;
       var gender = this.requesterForm.get('gender')!.value;
       var age = this.requesterForm.get('age')!.value;
@@ -68,7 +74,7 @@ export class RequesterComponent implements OnInit {
 
       this.showProgressBar = true;
 
-      this.commonService.addRequest(name, mobile_no, blood_group, gender, age, pincode, this.lat, this.lng).subscribe(
+      this.commonService.addRequest(name, mobile_no, city, blood_group, gender, age, pincode, this.lat, this.lng).subscribe(
       response=>{
         this.showProgressBar = false;
         console.log(response)

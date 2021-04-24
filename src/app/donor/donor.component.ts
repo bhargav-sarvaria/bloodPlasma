@@ -17,6 +17,7 @@ export class DonorComponent implements OnInit {
   
   donorForm: FormGroup;
   bloodGroups: any;
+  cities: any;
   lat: any = '';
   lng: any = '';
   gotLocation: boolean = false;
@@ -38,10 +39,15 @@ export class DonorComponent implements OnInit {
       '(A+)', '(A-)', '(B+)', '(B-)', '(O+)', '(O-)','(AB+)', '(AB-)'  
     ];
 
+    this.cities = [
+      'Mumbai', 'Pune', 'Nashik', 'Delhi', 'Bangalore', 'Chennai', 'Kolkatta'  
+    ];
+
     this.donorForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       mobile_no: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
       recovery_date: ['', [Validators.required]],
+      city: ['', [Validators.required]],
       blood_group: ['', [Validators.required]],
       age: ['', [Validators.required, Validators.min(10), Validators.max(99)]],
       pincode: ['', [Validators.required, Validators.min(100000), Validators.max(999999)]],
@@ -75,13 +81,14 @@ export class DonorComponent implements OnInit {
       var name = this.donorForm.get('name')!.value;
       var mobile_no = this.donorForm.get('mobile_no')!.value;
       var recovery_date = this.donorForm.get('recovery_date')!.value;
+      var city = this.donorForm.get('city')!.value;
       var blood_group = this.donorForm.get('blood_group')!.value;
       var age = this.donorForm.get('age')!.value;
       var pincode = this.donorForm.get('pincode')!.value;
 
       this.showProgressBar = true;
 
-      this.commonService.addDonor(name, mobile_no, recovery_date, blood_group, age, pincode, this.lat, this.lng).subscribe(
+      this.commonService.addDonor(name, mobile_no, recovery_date, city, blood_group, age, pincode, this.lat, this.lng).subscribe(
       response=>{
         this.showProgressBar = false;
         console.log(response)
