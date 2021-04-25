@@ -1,0 +1,23 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input.form-control.ng-invalid.ng-touched {
+    border-color: red;
+    box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+.message {
+  margin: 0 5%;
+  position: fixed;
+}
+
+.heading{
+  margin-top: 2%;
+  font-style: italic;
+  color: purple;
+  text-align: center;
+  width: 100%;
+}

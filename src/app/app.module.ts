@@ -28,6 +28,7 @@ import { RequesterComponent } from './requester/requester.component';
 import { RequestsComponent } from './requests/requests.component';
 
 import { AgmCoreModule } from '@agm/core';
+import { DonorBanksComponent } from './donor-banks/donor-banks.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AgmCoreModule } from '@agm/core';
     DonorInformationDialogComponent,
     RequesterComponent,
     RequestsComponent,
+    DonorBanksComponent,
   ],
   imports: [
     BrowserModule,

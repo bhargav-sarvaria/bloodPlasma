@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="heading">
+        <p>List of blood banks</p>
+      </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th *ngFor = "let column of headers">{{column}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let request of banks;let i = index">
+                <td>{{i}}</td>
+                <td>{{request.location}}</td>
+                <td>{{request.name}}</td>
+                <td>{{request.number}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
